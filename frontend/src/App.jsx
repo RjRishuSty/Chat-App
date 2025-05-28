@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import { ThemeProvider } from "@emotion/react";
 import AppLayout from "./Layouts/AppLayout";
@@ -14,6 +14,8 @@ import NotFound from "./pages/NotFound";
 const App = () => {
   const mode = useSelector((state) => state.appMode.appMode);
   const theme = createAppTheme(mode);
+  const isAuth = useSelector((state)=>state.auth.isAuthorised);
+  console.log(isAuth);
 
   const router = createBrowserRouter([
     {
@@ -22,7 +24,7 @@ const App = () => {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: isAuth?<Home />:<Navigate to="/login"/>
         },
         {
           path: "/login",
@@ -34,7 +36,7 @@ const App = () => {
         },
         {
           path: "/setting",
-          element: <Settings />,
+          element: isAuth?<Settings />:<Navigate to='/login'/>,
         },
         {
           path: "*",

@@ -2,14 +2,12 @@ import React from "react";
 import { Card, Typography, Button, useMediaQuery } from "@mui/material";
 import InputesFields from "./InputesFields";
 import Logo from "./Logo";
-import { Link as MuiLink } from "@mui/material";
-import { Link } from "react-router-dom";
 import { justifyContentCenter } from "../../customeStyles";
 
 const Cards = ({ useIn }) => {
   const isTablet = useMediaQuery("(max-width:992px)");
   const minTablet = useMediaQuery("(max-width:768px)");
-  const xsMobile = useMediaQuery("(max-width:375px)");
+  // const xsMobile = useMediaQuery("(max-width:375px)");
 
   const renderCardContent = () => {
     switch (useIn) {
@@ -38,17 +36,14 @@ const Cards = ({ useIn }) => {
     <Card
       sx={{
         // border:'2px solid red',
-        width: isTablet ? "100%" : "80%",
-        height: "100%",
+        width: "100%",
+        pt: isTablet ? 5 : 0,
         backgroundColor: "transparent",
         "--Paper-overlay": "none",
         backgroundImage: "none",
-        border: "none",
         boxShadow: "none",
         ...justifyContentCenter,
         flexDirection: "column",
-        py: xsMobile ? 4 : 5,
-        px: xsMobile ? 2 : 5,
       }}
     >
       {!minTablet ? (
@@ -75,41 +70,6 @@ const Cards = ({ useIn }) => {
         </>
       ) : null}
       {renderCardContent()}
-      {useIn === "login" || useIn === "signup" ? (
-        <>
-          <Button
-            fullWidth
-            type="submit"
-            variant="contained"
-            sx={{
-              py: 1.5,
-              color: "text.default",
-              letterSpacing: 1,
-              textTransform: "capitalize",
-              backgroundColor: "button.primary",
-            }}
-          >
-            {useIn === "login"
-              ? " Login"
-              : useIn === "signup"
-              ? "Create Account"
-              : ""}
-          </Button>
-
-          <Typography variant="body1" sx={{ mt: 3, color: "text.secondary" }}>
-            {useIn === "login"
-              ? "Don't have an account?"
-              : "Already have an account?"}{" "}
-            <MuiLink
-              component={Link}
-              to={useIn === "login" ? "/signup" : "/login"}
-              sx={{ color: "links.main" }}
-            >
-              {useIn === "login" ? "Create account" : "Sign in"}
-            </MuiLink>
-          </Typography>
-        </>
-      ) : null}
     </Card>
   );
 };

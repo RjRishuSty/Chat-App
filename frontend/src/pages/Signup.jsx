@@ -8,6 +8,7 @@ import AnimatedSquares from "../components/AnimatedSquares";
 import Cards from "../components/Cards";
 import HeaderLoginAndSignup from "../components/HeaderLoginAndSignup";
 import { justifyContentCenter } from "../../customeStyles";
+import CustomeButtom from "../components/CustomeButtom";
 
 //! Animation Variants
 const fadeSlideLeft = {
@@ -27,7 +28,8 @@ const textFade = {
 
 const Signup = () => {
   const isTablet = useMediaQuery("(max-width:768px)");
-  // const isMobile = useMediaQuery("(max-width:425px)");
+    const smLaptop = useMediaQuery("(max-width:1000px)");
+  
 
   return (
     <Stack component="section" sx={{ overflow: "hidden" }}>
@@ -49,7 +51,18 @@ const Signup = () => {
           initial="hidden"
           animate="visible"
         >
-          <Cards useIn="signup" />
+          <Box
+            sx={{
+              // border: "2px solid red",
+              width: smLaptop ? "100%" : "70%",
+              p: smLaptop ? 2 : 0,
+              ...justifyContentCenter,
+              flexDirection: "column",
+            }}
+          >
+            <Cards useIn="signup" />
+            <CustomeButtom useIn="signup" />
+          </Box>
         </Grid>
         {!isTablet ? (
           <Grid
